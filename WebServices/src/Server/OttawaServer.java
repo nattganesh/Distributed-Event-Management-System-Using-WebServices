@@ -7,32 +7,14 @@
  */
 package Server;
 
-import EventManagementServerApp.ServerInterface;
-import EventManagementServerApp.ServerInterfaceHelper;
-import ServerImpl.MontrealServerImpl;
+import javax.xml.ws.Endpoint;
 import ServerImpl.OttawaServerImpl;
-import org.omg.CORBA.ORB;
-import org.omg.CORBA.ORBPackage.InvalidName;
-import org.omg.CosNaming.NameComponent;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
-import org.omg.CosNaming.NamingContextPackage.CannotProceed;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
-import org.omg.PortableServer.POA;
-import org.omg.PortableServer.POAHelper;
-import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
-import org.omg.PortableServer.POAPackage.ServantNotActive;
-import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
-import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 import static CommonUtils.CommonUtils.*;
 
@@ -40,66 +22,25 @@ import static CommonUtils.CommonUtils.*;
  *
  * @author Gursimran Singh
  */
+
 public class OttawaServer {
 
+    public static OttawaServerImpl ottawaServerStub;
     public static void main(String[] args)
     {
         // TODO code application logic here
-        OttawaServerImpl ottawaServerStub = new OttawaServerImpl();
+        ottawaServerStub = new OttawaServerImpl();
+        Endpoint endpoint = Endpoint.publish("http://localhost:8081/ottawa", ottawaServerStub);
         Runnable runnable = () ->
         {
             receiveRequestsFromOthers(ottawaServerStub);
         };
 
-        Runnable task1 = () -> {
-            handleOttawaRequests(ottawaServerStub,args);
-        };
         Thread thread = new Thread(runnable);
-        Thread thread1 = new Thread(task1);
         thread.start();
-        thread1.start();
-
-//        Registry registry = LocateRegistry.createRegistry(OTTAWA_SERVER_PORT);
-//
-//        try
-//        {
-//            registry.bind(OTTAWA_SERVER_NAME, ottawaServerStub);
-//        }
-//        catch (RemoteException e)
-//        {
-//            e.printStackTrace();
-//        }
-//        catch (AlreadyBoundException e)
-//        {
-//            e.printStackTrace();
-//        }
 
     }
 
-    private static void handleOttawaRequests(OttawaServerImpl ottawaServer, String[] args) {
-        ORB orb = ORB.init(args, null);
-        try {
-            POA rootPoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-            rootPoa.the_POAManager().activate();
-
-            ottawaServer.setOrb(orb);
-
-            ServerInterface href = ServerInterfaceHelper.narrow(rootPoa.servant_to_reference(ottawaServer));
-
-            NamingContextExt namingContextReference = NamingContextExtHelper.narrow(orb.resolve_initial_references("NameService"));
-            NameComponent[] path = namingContextReference.to_name(OTTAWA_SERVER_NAME);
-
-            namingContextReference.rebind(path, href);
-            System.out.println("Ottawa Server is ready");
-            while(true) {
-                orb.run();
-            }
-
-        } catch (InvalidName | AdapterInactive | org.omg.CosNaming.NamingContextPackage.InvalidName | ServantNotActive | WrongPolicy | NotFound | CannotProceed e) {
-            System.out.println("Something went wrong in Ottawa server: "+e.getMessage());
-        }
-
-    }
     private static void receiveRequestsFromOthers(OttawaServerImpl ottawaServer)
     {
         DatagramSocket aSocket = null;

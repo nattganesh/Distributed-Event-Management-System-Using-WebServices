@@ -7,9 +7,13 @@
  */
 package ServerImpl;
 
-import EventManagementServerApp.ServerInterfacePOA;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 
-import org.omg.CORBA.ORB;
+import ServerInterfaces.WebInterface;
+
+
+
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -27,9 +31,12 @@ import static CommonUtils.CommonUtils.*;
  *
  * @author Gursimran Singh, Natheepan Ganeshamoorthy
  */
-public class MontrealServerImpl extends ServerInterfacePOA {
 
-    private ORB orb;
+
+@WebService(endpointInterface = "ServerInterfaces.WebInterface")
+
+@SOAPBinding(style = SOAPBinding.Style.RPC)
+public class MontrealServerImpl implements WebInterface {
 
     private static HashMap<String, HashMap< String, String>> databaseMontreal = new HashMap<>();
     private static HashMap<String, HashMap<String, HashMap< String, Integer>>> customerEventsMapping = new HashMap<>();
@@ -71,14 +78,6 @@ public class MontrealServerImpl extends ServerInterfacePOA {
         {
             Logger.getLogger(MontrealServerImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public ORB getOrb() {
-        return orb;
-    }
-
-    public void setOrb(ORB orb) {
-        this.orb = orb;
     }
 
     private static int serverPortSelection(String str)

@@ -7,35 +7,15 @@
  */
 package Server;
 
-import CommonUtils.CommonUtils;
-import EventManagementServerApp.ServerInterface;
-import EventManagementServerApp.ServerInterfaceHelper;
-import ServerImpl.MontrealServerImpl;
-//import ServerInterface.ServerInterface;
-import org.omg.CORBA.ORB;
-import org.omg.CORBA.ORBPackage.InvalidName;
-import org.omg.CosNaming.NameComponent;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
-import org.omg.CosNaming.NamingContextPackage.CannotProceed;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
-import org.omg.PortableServer.POA;
-import org.omg.PortableServer.POAHelper;
-import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
-import org.omg.PortableServer.POAPackage.ServantNotActive;
-import org.omg.PortableServer.POAPackage.WrongPolicy;
+import javax.xml.ws.Endpoint;
 
+import ServerImpl.MontrealServerImpl;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
-import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
-import static CommonUtils.CommonUtils.MONTREAL_SERVER_NAME;
 import static CommonUtils.CommonUtils.MONTREAL_SERVER_PORT;
 
 /**
@@ -44,65 +24,22 @@ import static CommonUtils.CommonUtils.MONTREAL_SERVER_PORT;
  */
 public class MontrealServer {
 
+    public static MontrealServerImpl montrealServerStub;
+    
     public static void main(String[] args)
     {
-        // TODO code application logic here
-        MontrealServerImpl montrealServerStub = new MontrealServerImpl();
+        montrealServerStub = new MontrealServerImpl();
+        Endpoint endpoint = Endpoint.publish("http://localhost:8080/montreal", montrealServerStub);
 
         Runnable runnable = () ->
         {
             receiveRequestsFromOthers(montrealServerStub);
         };
 
-        Runnable task1 = () -> {
-            handleMontrealRequests(montrealServerStub,args);
-        };
         Thread thread = new Thread(runnable);
-        Thread thread1 = new Thread(task1);
         thread.start();
-        thread1.start();
-
-
-       // Registry registry = LocateRegistry.createRegistry(MONTREAL_SERVER_PORT);
-
-//        try
-//        {
-//            registry.bind(MONTREAL_SERVER_NAME, montrealServerStub);
-//        }
-//        catch (RemoteException e)
-//        {
-//            e.printStackTrace();
-//        }
-//        catch (AlreadyBoundException e)
-//        {
-//            e.printStackTrace();
-//        }
-
     }
-    private static void handleMontrealRequests(MontrealServerImpl monImpl, String[] args) {
-        ORB orb = ORB.init(args, null);
-        try {
-            POA rootPoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-            rootPoa.the_POAManager().activate();
 
-            monImpl.setOrb(orb);
-
-            ServerInterface href = ServerInterfaceHelper.narrow(rootPoa.servant_to_reference(monImpl));
-
-            NamingContextExt namingContextReference = NamingContextExtHelper.narrow(orb.resolve_initial_references("NameService"));
-            NameComponent[] path = namingContextReference.to_name(MONTREAL_SERVER_NAME);
-
-            namingContextReference.rebind(path, href);
-            System.out.println("Montreal Server is ready");
-            while(true) {
-                orb.run();
-            }
-
-        } catch (InvalidName | AdapterInactive | org.omg.CosNaming.NamingContextPackage.InvalidName | ServantNotActive | WrongPolicy | NotFound | CannotProceed e) {
-            System.out.println("Something went wrong in montreal server: "+e.getMessage());
-        }
-
-    }
     private static void receiveRequestsFromOthers(MontrealServerImpl monStub)
     {
         DatagramSocket aSocket = null;

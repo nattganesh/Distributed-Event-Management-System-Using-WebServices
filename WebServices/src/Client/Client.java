@@ -8,8 +8,7 @@
 package Client;
 
 import CommonUtils.CommonUtils;
-import EventManagementServerApp.ServerInterface;
-import EventManagementServerApp.ServerInterfaceHelper;
+import ServerInterfaces.WebInterface;
 import ServerImpl.MontrealServerImpl;
 import ServerImpl.OttawaServerImpl;
 import ServerImpl.TorontoServerImpl;
@@ -29,6 +28,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static CommonUtils.CommonUtils.*;
+import java.net.URL;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
 /**
  *
@@ -38,18 +40,21 @@ public class Client {
 
     private static Logger LOGGER;
     private static final Scanner scanner = new Scanner(System.in);
-
+    static WebInterface webInterface;
     public static void main(String[] args)
     {
         try {
-            ORB orb = ORB.init(args, null);
-            org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-            NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-
+            
             String id = enterValidID(InputType.CLIENT_ID);
-            clientService(id.substring(0, 3), id.substring(4,8),id.substring(3, 4), ncRef);
-
-
+            
+            
+            String url = "http://localhost:808" + (id.substring(0,3).equals(MONTREAL)? "0/montreal": id.substring(0,3).equals(TORONTO)? "1/toronto": "2/ottawa") + "?wsdl";
+            URL addURL = new URL(url);
+		QName addQName = new QName("http://ServerImpl/", (id.substring(0,3).equals(MONTREAL)? "MontrealServerImplService": id.substring(0,3).equals(TORONTO)? "TorontoServerImplService": "OttawaServerImplService"));
+		
+		Service addition = Service.create(addURL, addQName);
+		webInterface = addition.getPort(WebInterface.class);           
+            clientService(id.substring(0, 3), id.substring(4,8),id.substring(3, 4), webInterface);
         }
         catch (Exception e) {
             System.out.println("Hello Client exception: " + e);
@@ -60,41 +65,30 @@ public class Client {
     }
     
 
-    private static void clientService(String serverId, String clientID, String clientType, NamingContextExt ncRef)
+    private static void clientService(String serverId, String clientID, String clientType, WebInterface webInterface)
     {
-        ServerInterface server;
         try
         {
             String customerID = capitalize(serverId + clientType + clientID);
             LOGGER = Logger.getLogger(getServerClassName(serverId));
             addFileHandler(LOGGER, customerID);
 
-
-            server = (ServerInterface) ServerInterfaceHelper.narrow(ncRef.resolve_str(getServerName(serverId)));
             if (clientType.equals(CUSTOMER_ClientType))
             {
                 System.out.println("Welcome Customer " + customerID);
-                runCustomerMenu(server, customerID);
+                runCustomerMenu(webInterface, customerID);
             }
             if (clientType.equals(EVENT_MANAGER_ClientType))
             {
                 System.out.println("Welcome Manager " + customerID);
-                runManagerMenu(server, customerID);
+                runManagerMenu(webInterface, customerID);
             }
-        }
-        catch (CannotProceed cannotProceed) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, cannotProceed);
-            cannotProceed.printStackTrace();
-        } catch (InvalidName invalidName) {
-            invalidName.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void runCustomerMenu(ServerInterface server, String customerID)
+    private static void runCustomerMenu(WebInterface server, String customerID)
     {
         String itemNum = "";
         while (!itemNum.equals("0"))
@@ -156,7 +150,7 @@ public class Client {
         scanner.close();
     }
 
-    private static void runManagerMenu(ServerInterface server, String managerID)
+    private static void runManagerMenu(WebInterface server, String managerID)
     {
         String itemNum = "";
         while (!itemNum.equals("0"))
@@ -223,7 +217,7 @@ public class Client {
         scanner.close();
     }
 
-    private static void managerAddEvent(ServerInterface server, String managerID)
+    private static void managerAddEvent(WebInterface server, String managerID)
     {
         try
         {
@@ -251,7 +245,7 @@ public class Client {
         }
     }
 
-    private static void managerRemoveEvent(ServerInterface server, String managerID)
+    private static void managerRemoveEvent(WebInterface server, String managerID)
     {
         String eventID;
         String eventType;
@@ -276,7 +270,7 @@ public class Client {
         }
     }
 
-    private static void managerListEvents(ServerInterface server, String customerID)
+    private static void managerListEvents(WebInterface server, String customerID)
     {
         try
         {
@@ -291,7 +285,7 @@ public class Client {
         }
     }
 
-    private static void runBookEvent(ServerInterface server, String customerID)
+    private static void runBookEvent(WebInterface server, String customerID)
     {
         System.out.println("What type of event do you wish to book? (Available Options: A: CONFERENCE, B: TRADESHOW, C: SEMINAR)");
         String eventType = getEventType();
@@ -305,7 +299,7 @@ public class Client {
         System.out.println(msg);
     }
 
-    private static void runBookingSchedule(ServerInterface server, String customerID, String managerId)
+    private static void runBookingSchedule(WebInterface server, String customerID, String managerId)
     {
         LOGGER.log(Level.INFO, "Booking Schedule Requested by {0}", customerID);
         System.out.println(customerID + "'s Bookings Schedule");

@@ -7,9 +7,7 @@
  */
 package Server;
 
-import EventManagementServerApp.ServerInterface;
-import EventManagementServerApp.ServerInterfaceHelper;
-import ServerImpl.OttawaServerImpl;
+import javax.xml.ws.Endpoint;
 import ServerImpl.TorontoServerImpl;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
@@ -42,22 +40,19 @@ import static CommonUtils.CommonUtils.*;
  */
 public class TorontoServer {
 
+    public static TorontoServerImpl torontoServerStub;
     public static void main(String[] args)
     {
 
-        TorontoServerImpl torontoServerStub = new TorontoServerImpl();
+        torontoServerStub = new TorontoServerImpl();
+        Endpoint endpoint = Endpoint.publish("http://localhost:8082/toronto", torontoServerStub);
         Runnable runnable = () ->
         {
             receiveRequestsFromOthers(torontoServerStub);
         };
 
-        Runnable task1 = () -> {
-            handleTorrontoRequests(torontoServerStub,args);
-        };
         Thread thread = new Thread(runnable);
-        Thread thread1 = new Thread(task1);
         thread.start();
-        thread1.start();
 
 
 //        Registry registry = LocateRegistry.createRegistry(TORONTO_SERVER_PORT);
@@ -76,30 +71,7 @@ public class TorontoServer {
 //        }
 
     }
-    private static void handleTorrontoRequests(TorontoServerImpl torontoServer, String[] args) {
-        ORB orb = ORB.init(args, null);
-        try {
-            POA rootPoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-            rootPoa.the_POAManager().activate();
 
-            torontoServer.setOrb(orb);
-
-            ServerInterface href = ServerInterfaceHelper.narrow(rootPoa.servant_to_reference(torontoServer));
-
-            NamingContextExt namingContextReference = NamingContextExtHelper.narrow(orb.resolve_initial_references("NameService"));
-            NameComponent[] path = namingContextReference.to_name(TORONTO_SERVER_NAME);
-
-            namingContextReference.rebind(path, href);
-            System.out.println("Toronto Server is ready");
-            while(true) {
-                orb.run();
-            }
-
-        } catch (InvalidName | AdapterInactive | org.omg.CosNaming.NamingContextPackage.InvalidName | ServantNotActive | WrongPolicy | NotFound | CannotProceed e) {
-            System.out.println("Something went wrong in Toronto server: "+e.getMessage());
-        }
-
-    }
     private static void receiveRequestsFromOthers(TorontoServerImpl torontoServer)
     {
         DatagramSocket aSocket = null;

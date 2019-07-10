@@ -7,17 +7,19 @@
  */
 package ServerImpl;
 
-//import ServerInterface.ServerInterface;
-import EventManagementServerApp.ServerInterface;
-import EventManagementServerApp.ServerInterfacePOA;
-import org.omg.CORBA.ORB;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+
+import ServerInterfaces.WebInterface;
+
+
+
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,9 +31,13 @@ import static CommonUtils.CommonUtils.*;
  *
  * @author Gursimran Singh, Natheepan Ganeshamoorthy
  */
-public class OttawaServerImpl extends ServerInterfacePOA {
 
-    private ORB orb;
+
+@WebService(endpointInterface = "ServerInterfaces.WebInterface")
+
+@SOAPBinding(style = SOAPBinding.Style.RPC)
+public class OttawaServerImpl implements WebInterface {
+
     private static HashMap<String, HashMap< String, String>> databaseOttawa = new HashMap<>();
     private static HashMap<String, HashMap<String, HashMap< String, Integer>>> customerEventsMapping = new HashMap<>();
     private static Logger logger;
@@ -71,13 +77,6 @@ public class OttawaServerImpl extends ServerInterfacePOA {
         }
     }
 
-    public ORB getOrb() {
-        return orb;
-    }
-
-    public void setOrb(ORB orb) {
-        this.orb = orb;
-    }
 
     @Override
     public synchronized String addEvent(String eventID, String eventType, String bookingCapacity, String managerID)
