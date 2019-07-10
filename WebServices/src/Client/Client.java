@@ -7,27 +7,18 @@
  */
 package Client;
 
-import CommonUtils.CommonUtils;
 import ServerInterfaces.WebInterface;
 import ServerImpl.MontrealServerImpl;
 import ServerImpl.OttawaServerImpl;
 import ServerImpl.TorontoServerImpl;
-import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
-import org.omg.CosNaming.NamingContextPackage.CannotProceed;
-import org.omg.CosNaming.NamingContextPackage.InvalidName;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 import java.io.IOException;
-import java.rmi.NotBoundException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static CommonUtils.CommonUtils.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -43,22 +34,22 @@ public class Client {
     static WebInterface webInterface;
     public static void main(String[] args)
     {
-        try {
-            
+        try 
+        {
+
             String id = enterValidID(InputType.CLIENT_ID);
-            
-            
-            String url = "http://localhost:808" + (id.substring(0,3).equals(MONTREAL)? "0/montreal": id.substring(0,3).equals(TORONTO)? "2/toronto": "1/ottawa") + "?wsdl";
+
+            String url = "http://localhost:808" + (id.substring(0, 3).equals(MONTREAL) ? "0/montreal" : id.substring(0, 3).equals(TORONTO) ? "2/toronto" : "1/ottawa") + "?wsdl";
             URL addURL = new URL(url);
-		QName addQName = new QName("http://ServerImpl/", (id.substring(0,3).equals(MONTREAL)? "MontrealServerImplService": id.substring(0,3).equals(TORONTO)? "TorontoServerImplService": "OttawaServerImplService"));
-		
-		Service addition = Service.create(addURL, addQName);
-		webInterface = addition.getPort(WebInterface.class);           
-            clientService(id.substring(0, 3), id.substring(4,8),id.substring(3, 4), webInterface);
-        }
-        catch (Exception e) {
+            QName addQName = new QName("http://ServerImpl/", (id.substring(0, 3).equals(MONTREAL) ? "MontrealServerImplService" : id.substring(0, 3).equals(TORONTO) ? "TorontoServerImplService" : "OttawaServerImplService"));
+
+            Service addition = Service.create(addURL, addQName);
+            webInterface = addition.getPort(WebInterface.class);
+            clientService(id.substring(0, 3), id.substring(4, 8), id.substring(3, 4), webInterface);
+        } 
+        catch (MalformedURLException e) 
+        {
             System.out.println("Hello Client exception: " + e);
-            e.printStackTrace();
         }
         
 
