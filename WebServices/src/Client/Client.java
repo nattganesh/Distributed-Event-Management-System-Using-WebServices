@@ -48,7 +48,7 @@ public class Client {
             String id = enterValidID(InputType.CLIENT_ID);
             
             
-            String url = "http://localhost:808" + (id.substring(0,3).equals(MONTREAL)? "0/montreal": id.substring(0,3).equals(TORONTO)? "1/toronto": "2/ottawa") + "?wsdl";
+            String url = "http://localhost:808" + (id.substring(0,3).equals(MONTREAL)? "0/montreal": id.substring(0,3).equals(TORONTO)? "2/toronto": "1/ottawa") + "?wsdl";
             URL addURL = new URL(url);
 		QName addQName = new QName("http://ServerImpl/", (id.substring(0,3).equals(MONTREAL)? "MontrealServerImplService": id.substring(0,3).equals(TORONTO)? "TorontoServerImplService": "OttawaServerImplService"));
 		
