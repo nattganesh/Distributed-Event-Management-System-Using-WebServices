@@ -110,7 +110,7 @@ public class MontrealServerImpl implements WebInterface {
                     + " is not of Montreal format (MTL)";
             logger.info(message);
 
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
         
         logger.info("Received request to add an event with event id " + eventID + " , Event Type" + eventType
@@ -122,7 +122,7 @@ public class MontrealServerImpl implements WebInterface {
                     + eventID + " Event Type: " + eventType + " Booking Capacity: " + bookingCapacity;
             logger.info(message);
 
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
         else
         {
@@ -132,7 +132,7 @@ public class MontrealServerImpl implements WebInterface {
                     + " is already added for the Event Type: " + eventType + ". But, the Booking Capacity is updated to " + bookingCapacity;
             logger.info(message);
 
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
 
     }
@@ -162,7 +162,7 @@ public class MontrealServerImpl implements WebInterface {
             message = "\nOperations Successful!. Event Removed in Montreal Server by Manager: " + managerID + " for Event ID: "
                     + eventID + " Event Type: " + eventType;
             logger.info(message);
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
         else
         {
@@ -170,7 +170,7 @@ public class MontrealServerImpl implements WebInterface {
                     + "or Event ID: " + eventID + " Event Type: " + eventType + " because the Event ID: " + eventID
                     + " does not exist";
             logger.info(message);
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
 
     }
@@ -224,7 +224,7 @@ public class MontrealServerImpl implements WebInterface {
         {
             message = "Operation UnSuccessful, List of events not retrieved for Event Type: " + eventType + " by Manager: " + managerID + " in server ";
             logger.info(message);
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
 
     }

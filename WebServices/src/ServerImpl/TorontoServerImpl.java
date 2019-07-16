@@ -91,7 +91,7 @@ public class TorontoServerImpl implements WebInterface {
                     + " is not of Toronto format (TOR)";
             logger.info(message);
 
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
         
         logger.log(Level.INFO, "Received request to add an event with event id {0} , Event Type{1} & Booking Capacity {2}", new Object[]
@@ -105,7 +105,7 @@ public class TorontoServerImpl implements WebInterface {
                     + eventID + " Event Type: " + eventType + " Booking Capacity: " + bookingCapacity;
             logger.info(message);
 
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
         else
         {
@@ -115,7 +115,7 @@ public class TorontoServerImpl implements WebInterface {
                     + " is already added for the Event Type: " + eventType + ". But, the Booking Capacity is updated to " + bookingCapacity;
             logger.info(message);
 
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
     }
 
@@ -144,7 +144,7 @@ public class TorontoServerImpl implements WebInterface {
             message = "Operations Successful!. Event Removed in Toronto Server by Manager: " + managerID + " for Event ID: "
                     + eventID + " Event Type: " + eventType;
             logger.info(message);
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
         else
         {
@@ -152,7 +152,7 @@ public class TorontoServerImpl implements WebInterface {
                     + "or Event ID: " + eventID + " Event Type: " + eventType + " because the Event ID: " + eventID
                     + " does not exist";
             logger.info(message);
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
     }
 
@@ -224,7 +224,7 @@ public class TorontoServerImpl implements WebInterface {
         {
             message = "Operation UnSuccessful, List of events not retrieved for Event Type: " + eventType + " by Manager: " + managerID + " in server " + TORONTO_SERVER_NAME;
             logger.info(message);
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
 
     }

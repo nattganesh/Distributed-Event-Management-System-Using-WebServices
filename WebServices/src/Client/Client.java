@@ -43,8 +43,8 @@ public class Client {
             URL addURL = new URL(url);
             QName addQName = new QName("http://ServerImpl/", (id.substring(0, 3).equals(MONTREAL) ? "MontrealServerImplService" : id.substring(0, 3).equals(TORONTO) ? "TorontoServerImplService" : "OttawaServerImplService"));
 
-            Service addition = Service.create(addURL, addQName);
-            webInterface = addition.getPort(WebInterface.class);
+            Service service = Service.create(addURL, addQName);
+            webInterface = service.getPort(WebInterface.class);
             clientService(id.substring(0, 3), id.substring(4, 8), id.substring(3, 4), webInterface);
         } 
         catch (MalformedURLException e) 
@@ -106,7 +106,7 @@ public class Client {
                         runBookEvent(server, customerID);
                         break;
                     case "2":
-                        runBookingSchedule(server, customerID, null);
+                        runBookingSchedule(server, customerID, "null");
                         break;
                     case "3":
                         System.out.println("Enter Event Type of The Event to Cancel? (Available Options: A: CONFERENCE, B: TRADESHOW, C: SEMINAR)");
@@ -294,6 +294,8 @@ public class Client {
     {
         LOGGER.log(Level.INFO, "Booking Schedule Requested by {0}", customerID);
         System.out.println(customerID + "'s Bookings Schedule");
+        if(managerId == null) managerId = "null";
+        if(customerID == null) customerID = "null";
         String booking = server.getBookingSchedule(customerID, managerId);
         System.out.println(booking);
 

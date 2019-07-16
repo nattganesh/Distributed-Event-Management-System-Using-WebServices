@@ -90,7 +90,7 @@ public class OttawaServerImpl implements WebInterface {
                     + " is not of Ottawa format (OTW)";
             logger.info(message);
 
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
         
         logger.info("Received request to add an event with event id " + eventID + " , Event Type" + eventType
@@ -102,7 +102,7 @@ public class OttawaServerImpl implements WebInterface {
                     + eventID + " Event Type: " + eventType + " Booking Capacity: " + bookingCapacity;
             logger.info(message);
 
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
         else
         {
@@ -112,7 +112,7 @@ public class OttawaServerImpl implements WebInterface {
                     + " is already added for the Event Type: " + eventType + ". But, the Booking Capacity is updated to " + bookingCapacity;
             logger.info(message);
 
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
     }
 
@@ -141,7 +141,7 @@ public class OttawaServerImpl implements WebInterface {
             message = "Operations Successful!. Event Removed in Ottawa Server by Manager: " + managerID + " for Event ID: "
                     + eventID + " Event Type: " + eventType;
             logger.info(message);
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
         else
         {
@@ -149,7 +149,7 @@ public class OttawaServerImpl implements WebInterface {
                     + "or Event ID: " + eventID + " Event Type: " + eventType + " because the Event ID: " + eventID
                     + " does not exist";
             logger.info(message);
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
     }
 
@@ -221,7 +221,7 @@ public class OttawaServerImpl implements WebInterface {
         {
             message = "Operation UnSuccessful, List of events not retrieved for Event Type: " + eventType + " by Manager: " + managerID + " in server " + OTTAWA_SERVER_NAME;
             logger.info(message);
-            return message;
+            return message.replaceAll("^[^a-zA-Z]*", "");
         }
 
     }
