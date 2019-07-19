@@ -87,7 +87,7 @@ public class TorontoServer {
                 aSocket.receive(request);
                 String response = requestsFromOthers(new String(request.getData()), torontoServer);
                 if(response == null) response = "";
-                response = response.replaceAll("^[^a-zA-Z]*", "");
+                response = response.trim().replaceAll("[^a-zA-Z0-9]", " ");
                 DatagramPacket reply = new DatagramPacket(response.getBytes(StandardCharsets.UTF_8), response.length(), request.getAddress(),
                         request.getPort());
                 //reply sent

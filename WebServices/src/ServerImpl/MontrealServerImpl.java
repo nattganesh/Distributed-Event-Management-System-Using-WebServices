@@ -110,7 +110,7 @@ public class MontrealServerImpl implements WebInterface {
                     + " is not of Montreal format (MTL)";
             logger.info(message);
 
-            return message.replaceAll("^[^a-zA-Z]*", "");
+            return message.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
         
         logger.info("Received request to add an event with event id " + eventID + " , Event Type" + eventType
@@ -122,7 +122,7 @@ public class MontrealServerImpl implements WebInterface {
                     + eventID + " Event Type: " + eventType + " Booking Capacity: " + bookingCapacity;
             logger.info(message);
 
-            return message.replaceAll("^[^a-zA-Z]*", "");
+            return message.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
         else
         {
@@ -132,7 +132,7 @@ public class MontrealServerImpl implements WebInterface {
                     + " is already added for the Event Type: " + eventType + ". But, the Booking Capacity is updated to " + bookingCapacity;
             logger.info(message);
 
-            return message.replaceAll("^[^a-zA-Z]*", "");
+            return message.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
 
     }
@@ -162,7 +162,7 @@ public class MontrealServerImpl implements WebInterface {
             message = "\nOperations Successful!. Event Removed in Montreal Server by Manager: " + managerID + " for Event ID: "
                     + eventID + " Event Type: " + eventType;
             logger.info(message);
-            return message.replaceAll("^[^a-zA-Z]*", "");
+            return message.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
         else
         {
@@ -170,7 +170,7 @@ public class MontrealServerImpl implements WebInterface {
                     + "or Event ID: " + eventID + " Event Type: " + eventType + " because the Event ID: " + eventID
                     + " does not exist";
             logger.info(message);
-            return message.replaceAll("^[^a-zA-Z]*", "");
+            return message.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
 
     }
@@ -218,13 +218,13 @@ public class MontrealServerImpl implements WebInterface {
             message = "Operation Successful, List of events retrieved for Event Type: " + eventType + " by Manager: " + managerID + "in server";
             logger.info(message);
 
-            return returnMessage.toString();
+            return returnMessage.toString().trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
         else
         {
             message = "Operation UnSuccessful, List of events not retrieved for Event Type: " + eventType + " by Manager: " + managerID + " in server ";
             logger.info(message);
-            return message.replaceAll("^[^a-zA-Z]*", "");
+            return message.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
 
     }
@@ -232,6 +232,7 @@ public class MontrealServerImpl implements WebInterface {
     @Override
     public synchronized String bookEvent(String customerID, String eventID, String eventType, String bookingAmount)
     {
+        String newMsg = "";
         if (!customerID.substring(0, 3).equals(MONTREAL) && !customerID.substring(0, 3).equals(eventID.substring(0, 3)))
         {
             int customerBookingsCurrent = Integer.parseInt(this.nonOriginCustomerBooking(customerID, eventID));
@@ -244,7 +245,7 @@ public class MontrealServerImpl implements WebInterface {
                 {
                     customerID, eventType, eventID
                 });
-                return "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Customer can book as many events in his/her own\n"
+                newMsg =  "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Customer can book as many events in his/her own\n"
                         + "city, but only at most 3 events from other cities overall in a month";
             }
         }
@@ -266,7 +267,7 @@ public class MontrealServerImpl implements WebInterface {
                         {
                             customerID, eventType, eventID
                         });
-                        return "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Customer already booked for this event.";
+                        newMsg =  "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Customer already booked for this event.";
                     }
                 }
                 int bookingLeft = Integer.parseInt(event.get(eventID).trim());
@@ -285,7 +286,7 @@ public class MontrealServerImpl implements WebInterface {
                     {
                         customerID, eventType, eventID
                     });
-                    return "Operation Successful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " has been booked.";
+                    newMsg =  "Operation Successful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " has been booked.";
                 }
                 else
                 {
@@ -293,7 +294,7 @@ public class MontrealServerImpl implements WebInterface {
                     {
                         customerID, eventType, eventID
                     });
-                    return "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Event Capacity < Booking Capacity Requested";
+                    newMsg =  "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Event Capacity < Booking Capacity Requested";
                 }
 
             }
@@ -303,18 +304,18 @@ public class MontrealServerImpl implements WebInterface {
                 {
                     customerID, eventType, eventID
                 });
-                return "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Event Does Not Exist.";
+                newMsg =  "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Event Does Not Exist.";
             }
         }
         if (eventID.substring(0, 3).equals(TORONTO))
         {
-            return requestToOtherServers(customerID, eventID, bookingAmount, 4, eventType, TORONTO_SERVER_PORT, null, null, null);
+            newMsg =  requestToOtherServers(customerID, eventID, bookingAmount, 4, eventType, TORONTO_SERVER_PORT, null, null, null);
         }
         if (eventID.substring(0, 3).equals(OTTAWA))
         {
-            return requestToOtherServers(customerID, eventID, bookingAmount, 4, eventType, OTTAWA_SERVER_PORT, null, null, null);
+            newMsg =  requestToOtherServers(customerID, eventID, bookingAmount, 4, eventType, OTTAWA_SERVER_PORT, null, null, null);
         }
-        return "";
+        return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
     }
 
     @Override
@@ -377,12 +378,13 @@ public class MontrealServerImpl implements WebInterface {
             }
         }
 
-        return returnMsg;
+        return returnMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
     }
 
     @Override
     public synchronized String cancelEvent(String customerID, String eventID, String eventType)
     {
+        String newMsg = "";
         switch (eventID.substring(0, 3))
         {
             case MONTREAL:
@@ -413,19 +415,19 @@ public class MontrealServerImpl implements WebInterface {
                             databaseMontreal.get(TRADESHOW).put(eventID, sum.toString());
                         }
                         logger.log(Level.INFO, "This event has been removed from customer record.");
-                        return "This event has been removed from customer record.";
+                        newMsg = "This event has been removed from customer record.";
                     }
                 }
                 logger.log(Level.INFO, "This event does not exist in customer record.");
-                return "This event does not exist in customer record.";
+                newMsg = "This event does not exist in customer record.";
             case TORONTO:
-                return requestToOtherServers(customerID, eventID, null, 6, eventType, TORONTO_SERVER_PORT, null, null, null);
+                newMsg = requestToOtherServers(customerID, eventID, null, 6, eventType, TORONTO_SERVER_PORT, null, null, null);
             case OTTAWA:
-                return requestToOtherServers(customerID, eventID, null, 6, eventType, OTTAWA_SERVER_PORT, null, null, null);
+                newMsg = requestToOtherServers(customerID, eventID, null, 6, eventType, OTTAWA_SERVER_PORT, null, null, null);
             default:
                 break;
         }
-        return null;
+        return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
     }
 
     @Override
@@ -521,6 +523,7 @@ public class MontrealServerImpl implements WebInterface {
     @Override
     public synchronized String swapEvent(String customerID, String newEventID, String newEventType, String oldEventID, String oldEventType)
     {
+        String newMsg = "";
         boolean isNewEventValid = false;
         boolean isOldEventValid = false;
         boolean isCustomerEligibleToBook = true;
@@ -541,8 +544,9 @@ public class MontrealServerImpl implements WebInterface {
                     {
                         customerID, newEventType, newEventID, oldEventType, oldEventID
                     });
-            return "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
+            newMsg =  "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
                     + "\nNew Event is Invalid";
+            return newMsg;
         }
 
         if (oldEventID.substring(0, 3).equals(MONTREAL))
@@ -561,8 +565,9 @@ public class MontrealServerImpl implements WebInterface {
                     {
                         customerID, newEventType, newEventID, oldEventType, oldEventID
                     });
-            return "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
+            newMsg =  "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
                     + "\nOld Event is Invalid";
+            return newMsg;
         }
         
         if(customerID.substring(0, 3).equals(MONTREAL) && newEventID.substring(0, 3).equals(MONTREAL)) isCustomerEligibleToBook = true;
@@ -581,8 +586,9 @@ public class MontrealServerImpl implements WebInterface {
                 {
                     customerID, newEventType, newEventID, oldEventType, oldEventID
                 });
-                return "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
+                newMsg =  "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
                         + "\nCustomer can book as many events in his/her own city, but only at most 3 events from other cities overall in a month";
+                return newMsg;
             }
         }
 
@@ -597,7 +603,8 @@ public class MontrealServerImpl implements WebInterface {
                 {
                     customerID, newEventType, newEventID, oldEventType, oldEventID
                 });
-                return msg + "\nOperation successful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " has been swaped. ";
+                newMsg =  msg + "\nOperation successful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " has been swaped. ";
+                return newMsg;
             }
             catch (Exception ex)
             {
