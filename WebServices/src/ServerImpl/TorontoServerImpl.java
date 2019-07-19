@@ -545,7 +545,7 @@ public class TorontoServerImpl implements WebInterface {
                     });
             newMsg =   "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
                     + "\nNew Event is Invalid";
-            return newMsg;
+            return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
 
         if (oldEventID.substring(0, 3).equals(TORONTO))
@@ -566,7 +566,7 @@ public class TorontoServerImpl implements WebInterface {
                     });
             newMsg =   "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
                     + "\nOld Event is Invalid";
-            return newMsg;
+            return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
         
         if(customerID.substring(0, 3).equals(TORONTO) && newEventID.substring(0, 3).equals(TORONTO)) isCustomerEligibleToBook = true;
@@ -587,7 +587,7 @@ public class TorontoServerImpl implements WebInterface {
                 });
                 newMsg =   "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
                         + "\nCustomer can book as many events in his/her own city, but only at most 3 events from other cities overall in a month";
-                return newMsg;
+                return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
             }
         }
 
@@ -603,7 +603,7 @@ public class TorontoServerImpl implements WebInterface {
                     customerID, newEventType, newEventID, oldEventType, oldEventID
                 });
                 newMsg =   msg + "\nOperation successful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " has been swaped. ";
-                return newMsg;
+                return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
             }
             catch (Exception ex)
             {
