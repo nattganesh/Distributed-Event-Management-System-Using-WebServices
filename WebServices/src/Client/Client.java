@@ -152,11 +152,12 @@ public class Client {
             System.out.println("4: Book Event");
             System.out.println("5: Get Booking Schedule");
             System.out.println("6: Cancel Event");
+            System.out.println("7: Swap Event");
             System.out.println("============================");
 
             itemNum = scanner.next().trim();
 
-            if (itemNum.matches("^[0-6]$"))
+            if (itemNum.matches("^[0-7]$"))
             {
                 switch (itemNum)
                 {
