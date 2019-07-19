@@ -9,13 +9,11 @@ package Server;
 
 import javax.xml.ws.Endpoint;
 import ServerImpl.OttawaServerImpl;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
-
 import static CommonUtils.CommonUtils.*;
 
 /**
@@ -28,7 +26,6 @@ public class OttawaServer {
     public static OttawaServerImpl ottawaServerStub;
     public static void main(String[] args)
     {
-        // TODO code application logic here
         ottawaServerStub = new OttawaServerImpl();
         Endpoint endpoint = Endpoint.publish("http://localhost:8081/ottawa", ottawaServerStub);
         Runnable runnable = () ->
@@ -38,7 +35,6 @@ public class OttawaServer {
 
         Thread thread = new Thread(runnable);
         thread.start();
-
     }
 
     private static void receiveRequestsFromOthers(OttawaServerImpl ottawaServer)
@@ -125,5 +121,4 @@ public class OttawaServer {
         }
         return "Incorrect";
     }
-
 }

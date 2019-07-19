@@ -8,14 +8,12 @@
 package Server;
 
 import javax.xml.ws.Endpoint;
-
 import ServerImpl.MontrealServerImpl;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
-
 import static CommonUtils.CommonUtils.MONTREAL_SERVER_PORT;
 
 /**
@@ -30,12 +28,10 @@ public class MontrealServer {
     {
         montrealServerStub = new MontrealServerImpl();
         Endpoint endpoint = Endpoint.publish("http://localhost:8080/montreal", montrealServerStub);
-
         Runnable runnable = () ->
         {
             receiveRequestsFromOthers(montrealServerStub);
         };
-
         Thread thread = new Thread(runnable);
         thread.start();
     }
@@ -124,5 +120,4 @@ public class MontrealServer {
         }
         return "Incorrect";
     }
-
 }

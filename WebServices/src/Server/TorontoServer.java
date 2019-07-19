@@ -9,29 +9,11 @@ package Server;
 
 import javax.xml.ws.Endpoint;
 import ServerImpl.TorontoServerImpl;
-import org.omg.CORBA.ORB;
-import org.omg.CORBA.ORBPackage.InvalidName;
-import org.omg.CosNaming.NameComponent;
-import org.omg.CosNaming.NamingContextExt;
-import org.omg.CosNaming.NamingContextExtHelper;
-import org.omg.CosNaming.NamingContextPackage.CannotProceed;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
-import org.omg.PortableServer.POA;
-import org.omg.PortableServer.POAHelper;
-import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
-import org.omg.PortableServer.POAPackage.ServantNotActive;
-import org.omg.PortableServer.POAPackage.WrongPolicy;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
-import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-
 import static CommonUtils.CommonUtils.*;
 
 /**
@@ -43,7 +25,6 @@ public class TorontoServer {
     public static TorontoServerImpl torontoServerStub;
     public static void main(String[] args)
     {
-
         torontoServerStub = new TorontoServerImpl();
         Endpoint endpoint = Endpoint.publish("http://localhost:8082/toronto", torontoServerStub);
         Runnable runnable = () ->
@@ -53,23 +34,6 @@ public class TorontoServer {
 
         Thread thread = new Thread(runnable);
         thread.start();
-
-
-//        Registry registry = LocateRegistry.createRegistry(TORONTO_SERVER_PORT);
-//
-//        try
-//        {
-//            registry.bind(TORONTO_SERVER_NAME, torontoServerStub);
-//        }
-//        catch (RemoteException e)
-//        {
-//            e.printStackTrace();
-//        }
-//        catch (AlreadyBoundException e)
-//        {
-//            e.printStackTrace();
-//        }
-
     }
 
     private static void receiveRequestsFromOthers(TorontoServerImpl torontoServer)

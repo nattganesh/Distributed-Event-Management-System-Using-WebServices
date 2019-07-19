@@ -32,29 +32,24 @@ public class Client {
     private static Logger LOGGER;
     private static final Scanner scanner = new Scanner(System.in);
     static WebInterface webInterface;
+
     public static void main(String[] args)
     {
-        try 
+        try
         {
-
             String id = enterValidID(InputType.CLIENT_ID);
-
             String url = "http://localhost:808" + (id.substring(0, 3).equals(MONTREAL) ? "0/montreal" : id.substring(0, 3).equals(TORONTO) ? "2/toronto" : "1/ottawa") + "?wsdl";
             URL addURL = new URL(url);
             QName addQName = new QName("http://ServerImpl/", (id.substring(0, 3).equals(MONTREAL) ? "MontrealServerImplService" : id.substring(0, 3).equals(TORONTO) ? "TorontoServerImplService" : "OttawaServerImplService"));
-
             Service service = Service.create(addURL, addQName);
             webInterface = service.getPort(WebInterface.class);
             clientService(id.substring(0, 3), id.substring(4, 8), id.substring(3, 4), webInterface);
-        } 
-        catch (MalformedURLException e) 
+        }
+        catch (MalformedURLException e)
         {
             System.out.println("Hello Client exception: " + e);
         }
-        
-
     }
-    
 
     private static void clientService(String serverId, String clientID, String clientType, WebInterface webInterface)
     {
@@ -74,8 +69,10 @@ public class Client {
                 System.out.println("Welcome Manager " + customerID);
                 runManagerMenu(webInterface, customerID);
             }
-        }catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+
         }
     }
 
@@ -195,6 +192,18 @@ public class Client {
                         String response = server.cancelEvent(customerID, eventID, eventType);
                         System.out.println("Response from server: " + response);
                         break;
+                    case "7":
+                        System.out.println("Enter new Event Type of The Event to Replace? (Available Options: A: CONFERENCE, B: TRADESHOW, C: SEMINAR)");
+                        String newEventType = getEventType();
+                        String newEventID = enterValidID(InputType.EVENT_ID);
+                        System.out.println("Enter old Event Type of The Event to Remove? (Available Options: A: CONFERENCE, B: TRADESHOW, C: SEMINAR)");
+                        String oldEventType = getEventType();
+                        String oldEventID = enterValidID(InputType.EVENT_ID);
+                        String customerID2 = enterValidID(InputType.CLIENT_ID);
+                        String swap = server.swapEvent(customerID2, newEventID, newEventType, oldEventID, oldEventType);
+                        System.out.println("Response from server: " + swap);
+                        LOGGER.log(Level.INFO, "Response of server: {0}", swap);
+                        break;
                     default:
                         System.out.println("Invalid Choice !!!");
                         break;
@@ -280,11 +289,7 @@ public class Client {
     {
         System.out.println("What type of event do you wish to book? (Available Options: A: CONFERENCE, B: TRADESHOW, C: SEMINAR)");
         String eventType = getEventType();
-
         String eventID = enterValidID(InputType.EVENT_ID);
-//        System.out.println("Enter the number of people attending: ");
-//        Integer booking = Integer.parseInt(getNumber());
-
         String msg = server.bookEvent(customerID, eventID, eventType, "1");
         LOGGER.info(msg);
         System.out.println(msg);
@@ -294,8 +299,6 @@ public class Client {
     {
         LOGGER.log(Level.INFO, "Booking Schedule Requested by {0}", customerID);
         System.out.println(customerID + "'s Bookings Schedule");
-        if(managerId == null) managerId = "null";
-        if(customerID == null) customerID = "null";
         String booking = server.getBookingSchedule(customerID, managerId);
         System.out.println(booking);
 
@@ -307,28 +310,6 @@ public class Client {
         else
         {
             LOGGER.log(Level.INFO, "Operation Failure. Records for {0} do not exist.", customerID);
-        }
-    }
-
-    private static int getServerPort(String serverId)
-    {
-        switch (serverId)
-        {
-            case TORONTO: return TORONTO_SERVER_PORT;
-            case MONTREAL: return MONTREAL_SERVER_PORT;
-            case OTTAWA: return OTTAWA_SERVER_PORT;
-            default: return -1;
-        }
-    }
-
-    private static String getServerName(String serverId)
-    {
-        switch (serverId)
-        {
-            case TORONTO:  return TORONTO_SERVER_NAME;
-            case MONTREAL: return MONTREAL_SERVER_NAME;
-            case OTTAWA:   return OTTAWA_SERVER_NAME;
-            default:       return "Server Does Not Exist";
         }
     }
 

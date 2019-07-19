@@ -9,22 +9,15 @@ package ServerImpl;
 
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-
 import ServerInterfaces.WebInterface;
-
-
-
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import static CommonUtils.CommonUtils.*;
 
 /**
@@ -34,21 +27,18 @@ import static CommonUtils.CommonUtils.*;
 
 
 @WebService(endpointInterface = "ServerInterfaces.WebInterface")
-
 @SOAPBinding(style = SOAPBinding.Style.RPC)
+
 public class TorontoServerImpl implements WebInterface {
     private static HashMap<String, HashMap< String, String>> databaseToronto = new HashMap<>();
     private static HashMap<String, HashMap<String, HashMap< String, Integer>>> customerEventsMapping = new HashMap<>();
     private static Logger logger;
-
-    
     {
         //item1
         databaseToronto.put(CONFERENCE, new HashMap<>());
         databaseToronto.get(CONFERENCE).put("TORM999999", "999");
         databaseToronto.get(CONFERENCE).put("TORE130921", "20");
         databaseToronto.get(CONFERENCE).put("TORA091819", "60");
-
 
         //item2
         databaseToronto.put(SEMINAR, new HashMap<>());
@@ -62,7 +52,6 @@ public class TorontoServerImpl implements WebInterface {
         databaseToronto.get(TRADESHOW).put("TORE061123", "90");
         databaseToronto.get(TRADESHOW).put("TORA999999", "999");
     }
-
 
     public TorontoServerImpl()
     {
@@ -154,24 +143,6 @@ public class TorontoServerImpl implements WebInterface {
             logger.info(message);
             return message.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
-    }
-
-    private static int serverPortSelection(String str)
-    {
-        str = str.substring(0, 3);
-        if (str.equals(TORONTO))
-        {
-            return TORONTO_SERVER_PORT;
-        }
-        else if (str.equals(OTTAWA))
-        {
-            return OTTAWA_SERVER_PORT;
-        }
-        else if (str.equals(MONTREAL))
-        {
-            return MONTREAL_SERVER_PORT;
-        }
-        return 0;
     }
 
     @Override
@@ -470,16 +441,7 @@ public class TorontoServerImpl implements WebInterface {
 
     public String requestToOtherServers(String userID, String eventID, String bookingCapacity, int serverNumber, String eventType, int serPort, String managerId, String newEventID, String newEventType)
     {
-
-        int serverPort;
-//        if (eventID != null)
-//        {
-//            serverPort = serverPortSelection(eventID);
-//        }
-//        else
-//        {
-            serverPort = serPort;
-//        }
+        int serverPort = serPort;
         String stringServer = Integer.toString(serverNumber);
         DatagramSocket aSocket = null;
         String response = null;
@@ -628,4 +590,3 @@ public class TorontoServerImpl implements WebInterface {
         return (customerEventsMapping.containsKey(customerID) && customerEventsMapping.get(customerID).containsKey(eventType)  && customerEventsMapping.get(customerID).get(eventType).containsKey(eventID)) ? "1" : "0";
     }
 }
-
