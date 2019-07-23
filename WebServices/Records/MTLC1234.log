@@ -1,0 +1,257 @@
+Jul 22, 2019 7:40:41 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 7:40:42 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 7:40:42 PM Client.Client runBookingSchedule
+INFO: Records for MTLC1234 do not exist 
+Jul 22, 2019 9:04:56 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWE251023 has been booked
+Jul 22, 2019 9:05:19 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Seminars with Event ID TORM051020 has been booked
+Jul 22, 2019 9:05:46 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type TradeShows with Event ID TORM241026 has been booked
+Jul 22, 2019 9:06:05 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID MTLE031219 has been booked 
+Jul 22, 2019 9:06:09 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 9:06:09 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 9:06:09 PM Client.Client runBookingSchedule
+INFO: For Seminar Events in Toronto   Event ID  TORM051020 Booking for 1 For Tradeshow Events in Toronto   Event ID  TORM241026 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     For Conference Events in Ottawa   Event ID  OTWE251023 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         For Conference Events in Montreal   Event ID  MTLE031219 Booking for 1
+Jul 22, 2019 9:07:10 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 9:07:10 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 9:07:10 PM Client.Client runBookingSchedule
+INFO: For Seminar Events in Toronto   Event ID  TORM051020 Booking for 1 For Tradeshow Events in Toronto   Event ID  TORM241026 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     For Conference Events in Ottawa   Event ID  OTWE251023 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         For Conference Events in Montreal   Event ID  MTLE031219 Booking for 1
+Jul 22, 2019 9:14:15 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID MTLE031219 has been booked 
+Jul 22, 2019 9:14:25 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWE251023 has been booked
+Jul 22, 2019 9:14:33 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORE130921 has been booked
+Jul 22, 2019 9:15:07 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 9:15:07 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 9:15:07 PM Client.Client runBookingSchedule
+INFO: 
+For Conference Events in Toronto  
+Event ID  TORE130921 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+For Conference Events in Ottawa  
+Event ID  OTWE251023 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+For Conference Events in Montreal  
+Event ID  MTLE031219 Booking for 1
+Jul 22, 2019 9:30:08 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID MTLE031219 has been booked 
+Jul 22, 2019 9:31:57 PM Client.Client runBookEvent
+INFO: Operation Unsuccessful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORA070724 cannot be booked  Event Does Not Exist
+Jul 22, 2019 9:32:02 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Seminars with Event ID TORA070724 has been booked
+Jul 22, 2019 9:32:07 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 9:32:07 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 9:32:07 PM Client.Client runBookingSchedule
+INFO: 
+For Conference Events in Toronto  
+Event ID  TORE130921 Booking for 1
+For Seminar Events in Toronto  
+Event ID  TORA070724 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+For Conference Events in Ottawa  
+Event ID  OTWE251023 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+For Conference Events in Montreal  
+Event ID  MTLE031219 Booking for 1
+Jul 22, 2019 9:32:46 PM Client.Client runCustomerMenu
+INFO: Response of server: 
+Operation successful  Swap Event Requested by MTLC1234 for New Event Type TradeShows with New Event ID TORE061123 with Old Event Type Conferences with old Event ID MTLE031219 has been swaped 
+Jul 22, 2019 9:46:56 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWE251023 has been booked
+Jul 22, 2019 9:47:03 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWA030326 has been booked
+Jul 22, 2019 9:47:18 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORE130921 has been booked
+Jul 22, 2019 9:47:29 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID MTLE031219 has been booked 
+Jul 22, 2019 9:47:31 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 9:47:31 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 9:47:31 PM Client.Client runBookingSchedule
+INFO: 
+For Conference Events in Toronto  
+Event ID  TORE130921 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+For Conference Events in Ottawa  
+Event ID  OTWE251023 Booking for 1
+Event ID  OTWA030326 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+For Conference Events in Montreal  
+Event ID  MTLE031219 Booking for 1
+Jul 22, 2019 9:48:02 PM Client.Client runCustomerMenu
+INFO: Response of server: 
+Operation successful  Swap Event Requested by MTLC1234 for New Event Type Conferences with New Event ID MTLM130720 with Old Event Type Conferences with old Event ID MTLE031219 has been swaped 
+Jul 22, 2019 9:48:40 PM Client.Client runCustomerMenu
+INFO: Response of server: Operation Unsuccessful  Swap Event Requested by MTLC1234 for New Event Type Seminars with New Event ID TORM051020 with Old Event Type Conferences with old Event ID MTLE031219 cannot be swaped  
+Old Event is Invalid
+Jul 22, 2019 9:48:49 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 9:48:49 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 9:48:49 PM Client.Client runBookingSchedule
+INFO: 
+For Conference Events in Toronto  
+Event ID  TORE130921 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+For Conference Events in Ottawa  
+Event ID  OTWE251023 Booking for 1
+Event ID  OTWA030326 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+For Conference Events in Montreal  
+Event ID  MTLM130720 Booking for 1
+Jul 22, 2019 9:49:23 PM Client.Client runCustomerMenu
+INFO: Response of server: 
+Operation successful  Swap Event Requested by MTLC1234 for New Event Type Seminars with New Event ID TORM051020 with Old Event Type Conferences with old Event ID MTLM130720 has been swaped 
+Jul 22, 2019 9:49:44 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 9:49:44 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 9:49:44 PM Client.Client runBookingSchedule
+INFO: 
+For Conference Events in Toronto  
+Event ID  TORE130921 Booking for 1
+For Seminar Events in Toronto  
+Event ID  TORM051020 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+For Conference Events in Ottawa  
+Event ID  OTWE251023 Booking for 1
+Event ID  OTWA030326 Booking for 1
+Jul 22, 2019 9:53:49 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORE130921 has been booked
+Jul 22, 2019 9:54:21 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWE251023 has been booked
+Jul 22, 2019 9:54:32 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Seminars with Event ID TORM051020 has been booked
+Jul 22, 2019 9:54:39 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Seminars with Event ID TORM051021 has been booked
+Jul 22, 2019 9:54:48 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Seminars with Event ID TORM051022 has been booked
+Jul 22, 2019 9:54:55 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 9:54:55 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 9:54:55 PM Client.Client runBookingSchedule
+INFO: 
+For Conference Events in Toronto  
+Event ID  TORE130921 Booking for 1
+For Seminar Events in Toronto  
+Event ID  TORM051022 Booking for 1
+Event ID  TORM051020 Booking for 1
+Event ID  TORM051021 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+For Conference Events in Ottawa  
+Event ID  OTWE251023 Booking for 1
+Jul 22, 2019 9:57:30 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type TradeShows with Event ID TORM241026 has been booked
+Jul 22, 2019 10:10:47 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWM121219 has been booked
+Jul 22, 2019 10:10:55 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWE121219 has been booked
+Jul 22, 2019 10:11:05 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORA121219 has been booked
+Jul 22, 2019 10:12:37 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWE121219 has been booked
+Jul 22, 2019 10:12:54 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORA121219 has been booked
+Jul 22, 2019 10:13:08 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORM121219 has been booked
+Jul 22, 2019 10:13:10 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 10:13:10 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 10:13:10 PM Client.Client runBookingSchedule
+INFO: 
+For Conference Events in Toronto  
+Event ID  TORA121219 Booking for 1
+Event ID  TORM121219 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+For Conference Events in Ottawa  
+Event ID  OTWE121219 Booking for 1
+Jul 22, 2019 10:17:41 PM Client.Client runBookEvent
+INFO: 
+Jul 22, 2019 10:17:50 PM Client.Client runBookEvent
+INFO: 
+Jul 22, 2019 10:17:59 PM Client.Client runBookEvent
+INFO: 
+Jul 22, 2019 10:18:06 PM Client.Client runBookEvent
+INFO: 
+Jul 22, 2019 10:18:20 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 10:18:20 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 10:18:20 PM Client.Client runBookingSchedule
+INFO: 
+Records for MTLC1234 do not exist 
+Jul 22, 2019 10:22:18 PM Client.Client runBookEvent
+INFO: 
+Jul 22, 2019 10:22:26 PM Client.Client runBookEvent
+INFO: 
+Jul 22, 2019 10:22:38 PM Client.Client runBookEvent
+INFO: 
+Jul 22, 2019 10:31:58 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWM121219 has been booked
+Jul 22, 2019 10:32:07 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWE121219 has been booked
+Jul 22, 2019 10:32:17 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORM121219 has been booked
+Jul 22, 2019 10:32:28 PM Client.Client runBookEvent
+INFO: Operation Unsuccessful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORE121219 cannot be booked  Customer can book as many events in his her own
+city  but only at most 3 events from other cities overall in a month
+Jul 22, 2019 10:32:57 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID MTLM121219 has been booked 
+Jul 22, 2019 10:33:01 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 10:33:01 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 10:33:01 PM Client.Client runBookingSchedule
+INFO: 
+For Conference Events in Toronto  
+Event ID  TORM121219 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+For Conference Events in Ottawa  
+Event ID  OTWE121219 Booking for 1
+Event ID  OTWM121219 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+For Conference Events in Montreal  
+Event ID  MTLM121219 Booking for 1
+Jul 22, 2019 10:33:27 PM Client.Client runCustomerMenu
+INFO: Response of server: 
+Operation successful  Swap Event Requested by MTLC1234 for New Event Type Conferences with New Event ID TORE121219 with Old Event Type Conferences with old Event ID MTLM121219 has been swaped 
+Jul 22, 2019 10:36:10 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWM121219 has been booked
+Jul 22, 2019 10:36:16 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWE121219 has been booked
+Jul 22, 2019 10:36:26 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORM121219 has been booked
+Jul 22, 2019 10:36:34 PM Client.Client runBookEvent
+INFO: Operation Unsuccessful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID TORE121219 cannot be booked  Customer can book as many events in his her own
+city  but only at most 3 events from other cities overall in a month
+Jul 22, 2019 10:36:46 PM Client.Client runCustomerMenu
+INFO: Response of server: Operation Unsuccessful  Swap Event Requested by MTLC1234 for New Event Type Conferences with New Event ID TORE121219 with Old Event Type Conferences with old Event ID TORE121219 cannot be swaped  
+Old Event is Invalid
+Jul 22, 2019 10:36:57 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID MTLE121219 has been booked 
+Jul 22, 2019 10:37:18 PM Client.Client runCustomerMenu
+INFO: Response of server: Operation Unsuccessful Max 3 bookings in a given month
+Jul 22, 2019 10:37:41 PM Client.Client runCustomerMenu
+INFO: Response of server: This event has been removed from customer record 
+Jul 22, 2019 10:37:55 PM Client.Client runCustomerMenu
+INFO: Response of server: This event has been removed from customer record
+Jul 22, 2019 10:38:01 PM Client.Client runBookEvent
+INFO: Operation Successful  Book Event Requested by MTLC1234 for Event Type Conferences with Event ID OTWE121219 has been booked
+Jul 22, 2019 10:38:07 PM Client.Client runBookingSchedule
+INFO: Booking Schedule Requested by MTLC1234
+Jul 22, 2019 10:38:07 PM Client.Client runBookingSchedule
+INFO: Operation Sucessful. Records for MTLC1234 have been found
+Jul 22, 2019 10:38:07 PM Client.Client runBookingSchedule
+INFO: 
+For Conference Events in Toronto  
+Event ID  TORM121219 Booking for 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+For Conference Events in Ottawa  
+Event ID  OTWE121219 Booking for 1
+Event ID  OTWM121219 Booking for 1
+Jul 22, 2019 10:38:13 PM Client.Client runCustomerMenu
+INFO: Response of server: This event has been removed from customer record
+Jul 22, 2019 10:38:21 PM Client.Client runCustomerMenu
+INFO: Response of server: 

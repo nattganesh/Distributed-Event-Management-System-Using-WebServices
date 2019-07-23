@@ -111,8 +111,8 @@ public class Client {
 //                        System.out.println("Enter Event ID to Cancel: ");
                         String eventID = enterValidID(InputType.EVENT_ID);
                         String response = server.cancelEvent(customerID, eventID, eventType);
-                        System.out.println("Response from server: " + response);
-                        LOGGER.log(Level.INFO, "Response of server: {0}", response);
+                        System.out.println("Response from server: " + response.replaceAll("NAT", "\n"));
+                        LOGGER.log(Level.INFO, "Response of server: {0}", response.replaceAll("NAT", "\n"));
                         break;
                     case "4":
                         System.out.println("Enter new Event Type of The Event to Replace? (Available Options: A: CONFERENCE, B: TRADESHOW, C: SEMINAR)");
@@ -122,8 +122,8 @@ public class Client {
                         String oldEventType = getEventType();
                         String oldEventID = enterValidID(InputType.EVENT_ID);
                         String swap = server.swapEvent(customerID, newEventID, newEventType, oldEventID, oldEventType);
-                        System.out.println("Response from server: " + swap);
-                        LOGGER.log(Level.INFO, "Response of server: {0}", swap);
+                        System.out.println("Response from server: " + swap.replaceAll("NAT", "\n"));
+                        LOGGER.log(Level.INFO, "Response of server: {0}", swap.replaceAll("NAT", "\n"));
                         break;
                     default:
                         System.out.println("Invalid Choice !!!");
@@ -191,7 +191,7 @@ public class Client {
                         String eventID = enterValidID(InputType.EVENT_ID);
                         String customerID = enterValidID(InputType.CLIENT_ID);
                         String response = server.cancelEvent(customerID, eventID, eventType);
-                        System.out.println("Response from server: " + response);
+                        System.out.println("Response from server: " + response.replaceAll("NAT", "\n"));
                         break;
                     case "7":
                         System.out.println("Enter new Event Type of The Event to Replace? (Available Options: A: CONFERENCE, B: TRADESHOW, C: SEMINAR)");
@@ -202,8 +202,8 @@ public class Client {
                         String oldEventID = enterValidID(InputType.EVENT_ID);
                         String customerID2 = enterValidID(InputType.CLIENT_ID);
                         String swap = server.swapEvent(customerID2, newEventID, newEventType, oldEventID, oldEventType);
-                        System.out.println("Response from server: " + swap);
-                        LOGGER.log(Level.INFO, "Response of server: {0}", swap);
+                        System.out.println("Response from server: " + swap.replaceAll("NAT", "\n"));
+                        LOGGER.log(Level.INFO, "Response of server: {0}", swap.replaceAll("NAT", "\n"));
                         break;
                     default:
                         System.out.println("Invalid Choice !!!");
@@ -237,8 +237,8 @@ public class Client {
                 managerID, eventID, eventType, bookingCapacity
             });
             String string = server.addEvent(eventID, eventType, bookingCapacity, managerID);
-            LOGGER.log(Level.INFO, "Response of server: {0}", string);
-            System.out.println("Response of server: " + string);
+            LOGGER.log(Level.INFO, "Response of server: {0}", string.replaceAll("NAT", "\n"));
+            System.out.println("Response of server: " + string.replaceAll("NAT", "\n"));
         }
         catch (Exception ex)
         {
@@ -262,8 +262,8 @@ public class Client {
                 managerID, eventID, eventType
             });
             String string = server.removeEvent(eventID, eventType, managerID);
-            System.out.println("Response of the server: " + string);
-            LOGGER.log(Level.INFO, "Response of server: {0}", string);
+            System.out.println("Response of the server: " + string.replaceAll("NAT", "\n"));
+            LOGGER.log(Level.INFO, "Response of server: {0}", string.replaceAll("NAT", "\n"));
         }
         catch (Exception ex)
         {
@@ -277,8 +277,8 @@ public class Client {
         {
             String eventType = getEventType();
             String str = server.listEventAvailability(eventType, customerID);
-            System.out.println(str);
-            LOGGER.log(Level.INFO, "Response of Server: {0}", str);
+            System.out.println(str.replaceAll("NAT", "\n"));
+            LOGGER.log(Level.INFO, "Response of Server: {0}", str.replaceAll("NAT", "\n"));
         }
         catch (Exception ex)
         {
@@ -292,8 +292,8 @@ public class Client {
         String eventType = getEventType();
         String eventID = enterValidID(InputType.EVENT_ID);
         String msg = server.bookEvent(customerID, eventID, eventType, "1");
-        LOGGER.info(msg);
-        System.out.println(msg);
+        LOGGER.info(msg.replaceAll("NAT", "\n"));
+        System.out.println(msg.replaceAll("NAT", "\n"));
     }
 
     private static void runBookingSchedule(WebInterface server, String customerID, String managerId)
@@ -301,12 +301,12 @@ public class Client {
         LOGGER.log(Level.INFO, "Booking Schedule Requested by {0}", customerID);
         System.out.println(customerID + "'s Bookings Schedule");
         String booking = server.getBookingSchedule(customerID, managerId);
-        System.out.println(booking);
+        System.out.println(booking.replaceAll("NAT", "\n"));
 
         if (!booking.equalsIgnoreCase(OPERATIONFAILURE))
         {
             LOGGER.log(Level.INFO, "Operation Sucessful. Records for {0} have been found", customerID);
-            LOGGER.info(booking);
+            LOGGER.info(booking.replaceAll("NAT", "\n"));
         }
         else
         {

@@ -36,13 +36,15 @@ public class TorontoServerImpl implements WebInterface {
     {
         //item1
         databaseToronto.put(CONFERENCE, new HashMap<>());
-        databaseToronto.get(CONFERENCE).put("TORM999999", "999");
-        databaseToronto.get(CONFERENCE).put("TORE130921", "20");
-        databaseToronto.get(CONFERENCE).put("TORA091819", "60");
+        databaseToronto.get(CONFERENCE).put("TORM121219", "999");
+        databaseToronto.get(CONFERENCE).put("TORE121219", "20");
+        databaseToronto.get(CONFERENCE).put("TORA121219", "60");
 
         //item2
         databaseToronto.put(SEMINAR, new HashMap<>());
         databaseToronto.get(SEMINAR).put("TORM051020", "70");
+        databaseToronto.get(SEMINAR).put("TORM051021", "70");
+        databaseToronto.get(SEMINAR).put("TORM051022", "70");
         databaseToronto.get(SEMINAR).put("TORE999999", "999");
         databaseToronto.get(SEMINAR).put("TORA070724", "80");
 
@@ -122,7 +124,7 @@ public class TorontoServerImpl implements WebInterface {
                     {
                         if (customerEventsMapping.get(customer).get(eventType).containsKey(eventID))
                         {
-                            message += "\nCustomer ID: " + customer + " for event id " + eventID + " event Type " + eventType + " with customer booking of " + customerEventsMapping.get(customer).get(eventType).get(eventID) + " who was booked in this event has been removed from record.";
+                            message += "NATCustomer ID: " + customer + " for event id " + eventID + " event Type " + eventType + " with customer booking of " + customerEventsMapping.get(customer).get(eventType).get(eventID) + " who was booked in this event has been removed from record.";
                             customerEventsMapping.get(customer).get(eventType).remove(eventID);
                         }
                     }
@@ -158,7 +160,7 @@ public class TorontoServerImpl implements WebInterface {
             String torrontoEvents = requestToOtherServers(managerID, null, null, 3, eventType, TORONTO_SERVER_PORT, null, null, null);
             logger.info("Requesting other server from Server: " + OTTAWA_SERVER_NAME);
             String ottawaEvents = requestToOtherServers(managerID, null, null, 3, eventType, OTTAWA_SERVER_PORT, null, null, null);
-            returnMessage.append(torrontoEvents).append("\n\n").append(ottawaEvents).append("\n\n");
+            returnMessage.append(torrontoEvents).append("NATNAT").append(ottawaEvents).append("NATNAT");
 
         }
         if (managerID.substring(0, 3).equals(TORONTO))
@@ -168,7 +170,7 @@ public class TorontoServerImpl implements WebInterface {
             logger.info("Requesting other server from Server: " + OTTAWA_SERVER_NAME);
             String ottawaEvents = requestToOtherServers(managerID, null, null, 3, eventType, OTTAWA_SERVER_PORT, null, null, null);
 
-            returnMessage.append(ottawaEvents).append("\n\n").append(montrealEvents).append("\n\n");
+            returnMessage.append(ottawaEvents).append("NATNAT").append(montrealEvents).append("NATNAT");
         }
         if (managerID.substring(0, 3).equals(OTTAWA))
         {
@@ -177,14 +179,14 @@ public class TorontoServerImpl implements WebInterface {
             logger.info("Requesting other server from Server: " + TORONTO_SERVER_NAME);
             String torrontoEvents = requestToOtherServers(managerID, null, null, 3, eventType, TORONTO_SERVER_PORT, null, null, null);
 
-            returnMessage.append(torrontoEvents).append("\n\n").append(montrealEvents).append("\n\n");
+            returnMessage.append(torrontoEvents).append("NATNAT").append(montrealEvents).append("NATNAT");
         }
 
         if (!databaseToronto.get(eventType).isEmpty())
         {
             for (Map.Entry<String, String> entry : databaseToronto.get(eventType).entrySet())
             {
-                returnMessage.append("EventID: " + entry.getKey() + "| Booking Capacity " + entry.getValue() + "\n");
+                returnMessage.append("EventID: " + entry.getKey() + "| Booking Capacity " + entry.getValue() + "NAT");
             }
             message = "Operation Successful, List of events retrieved for Event Type: " + eventType + " by Manager: " + managerID + "in server" + TORONTO_SERVER_NAME;
             logger.info(message);
@@ -216,8 +218,9 @@ public class TorontoServerImpl implements WebInterface {
                 {
                     customerID, eventType, eventID
                 });
-                newMsg =  "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Customer can book as many events in his/her own\n"
+                newMsg =  "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Customer can book as many events in his/her ownNAT"
                         + "city, but only at most 3 events from other cities overall in a month";
+                return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
             }
         }
 
@@ -239,6 +242,7 @@ public class TorontoServerImpl implements WebInterface {
                             customerID, eventType, eventID
                         });
                         newMsg =  "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Customer already booked for this event.";
+                   return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
                     }
                 }
                 int bookingLeft = Integer.parseInt(event.get(eventID).trim());
@@ -258,6 +262,7 @@ public class TorontoServerImpl implements WebInterface {
                         customerID, eventType, eventID
                     });
                     newMsg =  "Operation Successful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " has been booked.";
+                return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
                 }
                 else
                 {
@@ -266,6 +271,7 @@ public class TorontoServerImpl implements WebInterface {
                         customerID, eventType, eventID
                     });
                     newMsg =  "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Event Capacity < Booking Capacity Requested";
+                return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
                 }
             }
             else
@@ -275,57 +281,20 @@ public class TorontoServerImpl implements WebInterface {
                     customerID, eventType, eventID
                 });
                 newMsg =  "Operation Unsuccessful, Book Event Requested by " + customerID + " for Event Type " + eventType + " with Event ID " + eventID + " cannot be booked. Event Does Not Exist.";
+            return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
             }
         }
         if (eventID.substring(0, 3).equals(MONTREAL))
         {
             newMsg =  requestToOtherServers(customerID, eventID, bookingAmount, 4, eventType, MONTREAL_SERVER_PORT, null, null, null);
+        return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
         if (eventID.substring(0, 3).equals(OTTAWA))
         {
             newMsg =  requestToOtherServers(customerID, eventID, bookingAmount, 4, eventType, OTTAWA_SERVER_PORT, null, null, null);
+        return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
         return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
-    }
-
-    @Override
-    public synchronized String nonOriginCustomerBooking(String customerID, String eventID)
-    {
-        int numberOfCustomerEvents = 0;
-        if (customerEventsMapping.containsKey(customerID))
-        {
-            if (customerEventsMapping.get(customerID).containsKey(CONFERENCE))
-            {
-                for (String currentEventID : customerEventsMapping.get(customerID).get(CONFERENCE).keySet())
-                {
-                    if (eventID.substring(6, 8).equals(currentEventID.substring(6, 8)))
-                    {
-                        numberOfCustomerEvents++;
-                    }
-                }
-            }
-            if (customerEventsMapping.get(customerID).containsKey(SEMINAR))
-            {
-                for (String currentEventID : customerEventsMapping.get(customerID).get(SEMINAR).keySet())
-                {
-                    if (eventID.substring(6, 8).equals(currentEventID.substring(6, 8)))
-                    {
-                        numberOfCustomerEvents++;
-                    }
-                }
-            }
-            if (customerEventsMapping.get(customerID).containsKey(TRADESHOW))
-            {
-                for (String currentEventID : customerEventsMapping.get(customerID).get(TRADESHOW).keySet())
-                {
-                    if (eventID.substring(6, 8).equals(currentEventID.substring(6, 8)))
-                    {
-                        numberOfCustomerEvents++;
-                    }
-                }
-            }
-        }
-        return "" + numberOfCustomerEvents;
     }
 
     @Override
@@ -352,26 +321,26 @@ public class TorontoServerImpl implements WebInterface {
 
             if (customerConferenceEventID != null && !customerConferenceEventID.isEmpty())
             {
-                returnMsg += "\nFor Conference Events in Toronto: ";
+                returnMsg += "NATFor Conference Events in Toronto: ";
                 for (String event : customerConferenceEventID.keySet())
                 {
-                    returnMsg += "\nEvent ID: " + event + " Booking for " + customerConferenceEventID.get(event);
+                    returnMsg += "NATEvent ID: " + event + " Booking for " + customerConferenceEventID.get(event);
                 }
             }
             if (customerSeminarEventID != null && !customerSeminarEventID.isEmpty())
             {
-                returnMsg += "\nFor Seminar Events in Toronto: ";
+                returnMsg += "NATFor Seminar Events in Toronto: ";
                 for (String event : customerSeminarEventID.keySet())
                 {
-                    returnMsg += "\nEvent ID: " + event + " Booking for " + customerSeminarEventID.get(event);
+                    returnMsg += "NATEvent ID: " + event + " Booking for " + customerSeminarEventID.get(event);
                 }
             }
             if (customerTradeshowEventID != null && !customerTradeshowEventID.isEmpty())
             {
-                returnMsg += "\nFor Tradeshow Events in Toronto: ";
+                returnMsg += "NATFor Tradeshow Events in Toronto: ";
                 for (String event : customerTradeshowEventID.keySet())
                 {
-                    returnMsg += "\nEvent ID: " + event + " Booking for " + customerTradeshowEventID.get(event);
+                    returnMsg += "NATEvent ID: " + event + " Booking for " + customerTradeshowEventID.get(event);
                 }
             }
             if (!returnMsg.trim().equals(""))
@@ -384,7 +353,7 @@ public class TorontoServerImpl implements WebInterface {
             logger.log(Level.INFO, "Records for {0} do not exist.", customerID);
             if ((customerID.substring(0, 3).equals(TORONTO) && managerID.equals("null"))||(!managerID.equals("null") && managerID.substring(0, 3).equals(TORONTO)))
             {
-                returnMsg += "\nRecords for " + customerID + " do not exist.";
+                returnMsg += "NATRecords for " + customerID + " do not exist.";
             }
         }
         return returnMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
@@ -427,19 +396,25 @@ public class TorontoServerImpl implements WebInterface {
                         newMsg = "This event has been removed from customer record.";
                     }
                 }
-                logger.log(Level.INFO, "This event does not exist in customer record.");
-                newMsg = "This event does not exist in customer record.";
+                else
+                {
+                    logger.log(Level.INFO, "This event does not exist in customer record.");
+                    newMsg = "This event does not exist in customer record.";
+                }
+                break;
             case MONTREAL:
                 newMsg = requestToOtherServers(customerID, eventID, null, 6, eventType, MONTREAL_SERVER_PORT, null, null, null);
+                break;
             case OTTAWA:
                 newMsg = requestToOtherServers(customerID, eventID, null, 6, eventType, OTTAWA_SERVER_PORT, null, null, null);
+                break;
             default:
                 break;
         }
         return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
     }
 
-    public String requestToOtherServers(String userID, String eventID, String bookingCapacity, int serverNumber, String eventType, int serPort, String managerId, String newEventID, String newEventType)
+    public synchronized String requestToOtherServers(String userID, String eventID, String bookingCapacity, int serverNumber, String eventType, int serPort, String managerId, String newEventID, String newEventType)
     {
         int serverPort = serPort;
         String stringServer = Integer.toString(serverNumber);
@@ -484,6 +459,16 @@ public class TorontoServerImpl implements WebInterface {
     @Override
     public synchronized String swapEvent(String customerID, String newEventID, String newEventType, String oldEventID, String oldEventType)
     {
+        if (!newEventID.substring(0, 3).equals(TORONTO) && customerID.substring(0, 3).equals(TORONTO) && oldEventID.substring(0, 3).equals(TORONTO))
+        {
+            int customerBookings1 = Integer.parseInt(requestToOtherServers(customerID, newEventID, null, 7, null, MONTREAL_SERVER_PORT, null, null, null).trim());
+            int customerBookings2 = Integer.parseInt(requestToOtherServers(customerID, newEventID, null, 7, null, OTTAWA_SERVER_PORT, null, null, null).trim());
+            boolean maxAllowableInMonth = (customerBookings1 + customerBookings2 >= 3);
+            if (maxAllowableInMonth)
+            {
+                return "Operation Unsuccessful Max 3 bookings in a given month";
+            }
+        }
         String newMsg = "";
         boolean isNewEventValid = false;
         boolean isOldEventValid = false;
@@ -506,7 +491,7 @@ public class TorontoServerImpl implements WebInterface {
                         customerID, newEventType, newEventID, oldEventType, oldEventID
                     });
             newMsg =   "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
-                    + "\nNew Event is Invalid";
+                    + "NATNew Event is Invalid";
             return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
 
@@ -527,7 +512,7 @@ public class TorontoServerImpl implements WebInterface {
                         customerID, newEventType, newEventID, oldEventType, oldEventID
                     });
             newMsg =   "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
-                    + "\nOld Event is Invalid";
+                    + "NATOld Event is Invalid";
             return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
         }
         
@@ -548,7 +533,7 @@ public class TorontoServerImpl implements WebInterface {
                     customerID, newEventType, newEventID, oldEventType, oldEventID
                 });
                 newMsg =   "Operation Unsuccessful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " cannot be swaped. "
-                        + "\nCustomer can book as many events in his/her own city, but only at most 3 events from other cities overall in a month";
+                        + "NATCustomer can book as many events in his/her own city, but only at most 3 events from other cities overall in a month";
                 return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
             }
         }
@@ -558,13 +543,13 @@ public class TorontoServerImpl implements WebInterface {
             String msg = "";
             try
             {
-                msg = cancelEvent(customerID, oldEventID, oldEventType) + "\n" + bookEvent(customerID, newEventID, newEventType, "1") + "\n Events Have Been Swapped";
+                msg = cancelEvent(customerID, oldEventID, oldEventType) + "NAT" + bookEvent(customerID, newEventID, newEventType, "1") + "NAT Events Have Been Swapped";
                 logger.log(Level.INFO, msg);
                 logger.log(Level.INFO, "Operation successful, Swap Event Requested by {0} for New Event Type {1} with New Event ID {2} with Old Event Type {3} with old Event ID {4}  has been swaped. ", new Object[]
                 {
                     customerID, newEventType, newEventID, oldEventType, oldEventID
                 });
-                newMsg =   msg + "\nOperation successful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " has been swaped. ";
+                newMsg =  "NATOperation successful, Swap Event Requested by " + customerID + " for New Event Type " + newEventType + " with New Event ID " + newEventID + " with Old Event Type " + oldEventType + " with old Event ID " + oldEventID + " has been swaped. ";
                 return newMsg.trim().replaceAll("[^a-zA-Z0-9]", " ");
             }
             catch (Exception ex)
@@ -588,5 +573,45 @@ public class TorontoServerImpl implements WebInterface {
     {
         eventType = eventType.substring(0,3).equalsIgnoreCase("CON")? CONFERENCE : eventType.substring(0,3).equalsIgnoreCase("SEM")? SEMINAR : TRADESHOW;
         return (customerEventsMapping.containsKey(customerID) && customerEventsMapping.get(customerID).containsKey(eventType)  && customerEventsMapping.get(customerID).get(eventType).containsKey(eventID)) ? "1" : "0";
+    }
+
+    @Override
+    public synchronized String nonOriginCustomerBooking(String customerID, String eventID)
+    {
+        int numberOfCustomerEvents = 0;
+        if (customerEventsMapping.containsKey(customerID) && !customerID.substring(0, 3).equals(TORONTO))
+        {
+            if (customerEventsMapping.get(customerID).containsKey(CONFERENCE))
+            {
+                for (String currentEventID : customerEventsMapping.get(customerID).get(CONFERENCE).keySet())
+                {
+                    if (eventID.substring(6).equals(currentEventID.substring(6)))
+                    {
+                        numberOfCustomerEvents++;
+                    }
+                }
+            }
+            if (customerEventsMapping.get(customerID).containsKey(SEMINAR))
+            {
+                for (String currentEventID : customerEventsMapping.get(customerID).get(SEMINAR).keySet())
+                {
+                    if (eventID.substring(6).equals(currentEventID.substring(6)))
+                    {
+                        numberOfCustomerEvents++;
+                    }
+                }
+            }
+            if (customerEventsMapping.get(customerID).containsKey(TRADESHOW))
+            {
+                for (String currentEventID : customerEventsMapping.get(customerID).get(TRADESHOW).keySet())
+                {
+                    if (eventID.substring(6).equals(currentEventID.substring(6)))
+                    {
+                        numberOfCustomerEvents++;
+                    }
+                }
+            }
+        }
+        return "" + numberOfCustomerEvents;
     }
 }
